@@ -24,25 +24,31 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
-
-body {
-  width: 100%;
-  min-height: 1080px;
-  background-image: url(assets/images/bg.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  box-sizing: border-box;
-  a {
-    text-decoration: none;
-    color: #1c1c1c;
+html {
+  body {
+    background-image: url(assets/images/bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    font-size: 16px;
+    a {
+      text-decoration: none;
+      color: #1c1c1c;
+    }
+    @media (max-width: 1300px) {
+      background-position: 30% 70%;
+    }
+    @media (max-width: 805px) {
+      background-position: 55% 70%;
+    }
   }
-}
 
-#app {
-  color: #1c1c1c;
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.875rem;
+  #app {
+    color: #1c1c1c;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
 }
 </style>

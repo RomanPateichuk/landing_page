@@ -15,7 +15,7 @@
         </menu>
       </nav>
       <header class="header">
-        <div class="services">
+        <div class="services header-item">
           <p class="materials">
             <span class="header-attent"
               >Кровельные и фасадные <br />
@@ -28,16 +28,16 @@
             2010 года.
           </p>
         </div>
-        <a class="price" href="">
+        <a class="price header-item" href="">
           <div class="price-logo">Pdf</div>
           <p class="header-link">
             <span class="header-attent">Скачать прайс-каталог</span>
           </p>
         </a>
-        <div class="logo">
+        <div class="logo header-item">
           <img src="../../assets/images/logo.png" alt="company logo" />
         </div>
-        <div class="socials">
+        <div class="socials header-item">
           <p class="social-text">
             Отвечаем <span class="header-attent">онлайн</span>
           </p>
@@ -56,7 +56,7 @@
             </a>
           </div>
         </div>
-        <div class="contacts">
+        <div class="contacts header-item">
           <p class="working">
             <span class="header-attent">Пн-Пт</span> 9:00 - 18:00,
             <span class="header-attent">Сб</span> 10:00 - 18:00
@@ -88,14 +88,16 @@
           области
         </h1>
         <p class="main-description">и монтаж под ключ</p>
-        <button class="calculate main-btn">
-          <p class="btn-text">Рассчитать стоимость материалов и монтажа</p>
-          <img src="../../assets/images/arrow.svg" alt="arrow" />
-        </button>
-        <button class="write main-btn">
-          <p class="btn-text">записаться на просмотр объектов</p>
-          <img src="../../assets/images/arrow.svg" alt="arrow" />
-        </button>
+        <div class="main-btn-wrapper">
+          <button class="calculate main-btn">
+            <p class="btn-text">Рассчитать стоимость материалов и монтажа</p>
+            <img src="../../assets/images/arrow.svg" alt="arrow" />
+          </button>
+          <button class="write main-btn">
+            <p class="btn-text">записаться на просмотр объектов</p>
+            <img src="../../assets/images/arrow.svg" alt="arrow" />
+          </button>
+        </div>
         <a class="answer-wrapper" href="">
           <img src="../../assets/images/icon_click.png" alt="click to answer" />
           <p class="answer-text">
@@ -216,13 +218,25 @@ export default {
 <style scoped lang="scss">
 .main-wrapper {
   margin: 0 auto;
-  padding: 0 9.11vw;
+  padding: 0 9.11vw 5vw;
   position: relative;
+  width: 100%;
+  @media (max-width: 1160px) {
+    padding: 0 5vw 5vw;
+  }
   .header-wrapper {
     display: flex;
     flex-direction: column;
     @media (max-width: 1110px) {
       padding: 0 5vw;
+    }
+
+    @media (max-width: 644px) {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+      padding: 0;
     }
     .nav {
       .menu {
@@ -233,29 +247,50 @@ export default {
         padding: 0 1.35vw 1.82vw 0;
         margin-top: 43px;
         border-bottom: 1px solid rgba(28, 28, 28, 0.1);
+
         @media (max-width: 1220px) {
           padding: 0 0 1.82vw 0;
+        }
+        @media (max-width: 644px) {
+          border-bottom: none;
         }
 
         li {
           list-style-type: none;
           &.burger {
             display: none;
-            width: 1.042vw;
-            height: 0.781vw;
+            width: 20px;
+            height: 15px;
             border-top: 2.13px solid #1c1c1c;
             border-bottom: 2.13px solid #1c1c1c;
             position: relative;
+            margin-left: auto;
+            @media (max-width: 1111px) {
+              display: block;
+            }
+            @media (max-width: 644px) {
+              top: -10px;
+            }
           }
           &:after {
             content: "";
-            width: 1.042vw;
+            width: 20px;
             height: 0;
             position: absolute;
             border-bottom: 2.13px solid #1c1c1c;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+          }
+          @media (max-width: 1111px) {
+            &:not(:first-child):not(:last-child) {
+              display: none;
+            }
+          }
+          @media (max-width: 644px) {
+            &:first-child {
+              display: none;
+            }
           }
         }
 
@@ -283,7 +318,22 @@ export default {
       font-size: 0.75rem;
       flex-wrap: wrap;
       gap: 0.781vw;
+      @media (max-width: 1495px) {
+        justify-content: center;
+        gap: 4vw;
+        row-gap: 1vw;
+      }
+      @media (max-width: 644px) {
+        flex-wrap: nowrap;
+      }
 
+      .header-item {
+        @media (max-width: 995px) {
+          &:not(:last-child):not(:nth-child(3)) {
+            display: none;
+          }
+        }
+      }
       .div {
         flex: 0 0 auto;
       }
@@ -319,12 +369,24 @@ export default {
           align-items: center;
           width: 2.284vw;
           height: 2.284vw;
-          font-size: 11px;
+          font-size: 0.6875rem;
           background: #ffffff;
           box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.05);
           border-radius: 100px;
           color: #12c868;
           margin-right: 17.15px;
+        }
+      }
+
+      .logo {
+        img {
+          @media (max-width: 644px) {
+            width: 75px;
+            height: 52px;
+          }
+        }
+        @media (max-width: 320px) {
+          align-self: flex-start;
         }
       }
 
@@ -367,10 +429,17 @@ export default {
         text-align: center;
         .call-wrapper {
           .telephone {
-            font-size: 22px;
+            font-size: 1.375rem;
             letter-spacing: 0.05em;
             margin: 6px 0;
+            @media (max-width: 380px) {
+              font-size: 17px;
+            }
           }
+        }
+        @media (max-width: 380px) {
+          padding-top: 10px;
+          font-size: 10px;
         }
       }
     }
@@ -416,23 +485,44 @@ export default {
           content: url("../../assets/images/aside_shadow.png");
         }
       }
+      @media (max-width: 1054px) {
+        display: none;
+      }
     }
     .main-section {
       padding-left: 45px;
       padding-top: 28px;
       width: 100%;
+
+      @media (max-width: 1054px) {
+        padding-left: 0;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+      }
       .main-h {
-        width: 41.5rem;
+        width: 50vw;
         font-weight: 300;
-        font-size: 55px;
+        font-size: 3.4375rem;
         line-height: 85px;
         span {
           font-weight: 600;
         }
+        @media (max-width: 1289px) {
+          width: auto;
+        }
+        @media (max-width: 1054px) {
+          text-align: center;
+          line-height: 75px;
+        }
+        @media (max-width: 500px) {
+          line-height: 35px;
+          font-size: 25px;
+        }
       }
 
       .main-description {
-        font-size: 32px;
+        font-size: 2rem;
         line-height: 39px;
         position: relative;
         padding-left: 65px;
@@ -442,59 +532,90 @@ export default {
           position: absolute;
           left: -9px;
         }
-      }
-
-      .main-btn {
-        display: inline-flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100px;
-        border: none;
-        font-weight: 600;
-        line-height: 22px;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-        color: #ffffff;
-        border-radius: 500px;
-        padding-left: 53px;
-        margin-top: 45px;
-
-        &.calculate {
-          width: 375px;
-          background-color: rgba(18, 200, 104, 1);
-          text-align: justify;
-          padding-right: 55px;
-          &:hover {
-            background-color: #21e27c;
-          }
+        @media (max-width: 1054px) {
+          display: table;
+          margin: 2% auto;
         }
-
-        &.write {
-          width: 335px;
-          background: #f38120;
-          margin-left: 15px;
-          padding-right: 43px;
-          &:hover {
-            background-color: #fd9c49;
-          }
-        }
-
-        .btn-text {
-          width: 80%;
+        @media (max-width: 500px) {
+          font-size: 16px;
         }
       }
+      .main-btn-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        order: 2;
+        @media (max-width: 1054px) {
+          justify-content: space-around;
+        }
+        .main-btn {
+          display: inline-flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 100px;
+          border: none;
+          font-weight: 600;
+          line-height: 22px;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+          color: #ffffff;
+          border-radius: 500px;
+          padding: 30px;
+          margin-top: 45px;
+          @media (max-width: 805px) {
+            width: 60%;
+          }
+          @media (max-width: 651px) {
+            width: 85%;
+          }
+          @media (max-width: 427px) {
+            width: 95%;
+            font-size: 10px;
+          }
 
+          &.calculate {
+            width: 375px;
+            background-color: rgba(18, 200, 104, 1);
+
+            &:hover {
+              background-color: #21e27c;
+            }
+          }
+
+          &.write {
+            width: 335px;
+            background: #f38120;
+            margin-left: 15px;
+
+            &:hover {
+              background-color: #fd9c49;
+            }
+          }
+
+          .btn-text {
+            width: 80%;
+          }
+        }
+      }
       .answer-wrapper {
         display: flex;
         align-items: flex-start;
         margin-top: 4vw;
+        @media (max-width: 1054px) {
+          flex-direction: column;
+          gap: 2vh;
+          justify-content: center;
+          align-items: center;
+          order: 1;
+        }
         .answer-text {
           width: 19%;
           font-weight: 400;
           line-height: 22px;
           text-align: center;
           letter-spacing: 0.02em;
-
+          @media (max-width: 1054px) {
+            width: 50%;
+          }
           span {
             font-weight: 600;
           }
@@ -507,7 +628,7 @@ export default {
     }
   }
   .modal-request-wrapper {
-    display: block;
+    display: none;
     background: #f5f5f5;
     min-width: 28.7vw;
     border-radius: 2.1875rem;
@@ -545,7 +666,7 @@ export default {
       }
     }
     .modal-title {
-      font-size: 30px;
+      font-size: 1.875rem;
       line-height: 150%;
       text-align: center;
       letter-spacing: 0.02em;
@@ -591,7 +712,7 @@ export default {
         border-radius: 500px;
         text-align: center;
         caret-color: transparent;
-        font-size: 18px;
+        font-size: 1.125rem;
         line-height: 20px;
         letter-spacing: 0.02em;
         color: #a7a7a7;
@@ -601,7 +722,7 @@ export default {
           outline-offset: -1px;
         }
         &::placeholder {
-          font-size: 18px;
+          font-size: 1.125rem;
           line-height: 20px;
           letter-spacing: 0.02em;
           color: #a7a7a7;
@@ -619,7 +740,7 @@ export default {
         box-shadow: inset 0px 0px 17px rgba(255, 255, 255, 0.25);
         border-radius: 500px;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 1rem;
         line-height: 20px;
         display: flex;
         align-items: center;
@@ -663,7 +784,7 @@ export default {
 
         .lab-check {
           font-weight: 500;
-          font-size: 12px;
+          font-size: 0.75rem;
           line-height: 21px;
           margin-left: 19px;
           width: 65%;
