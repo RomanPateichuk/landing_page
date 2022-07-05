@@ -1,5 +1,6 @@
 <template>
   <MainPage />
+  <HeaderWrapper />
 </template>
 
 <script>
@@ -31,6 +32,7 @@ html {
     background-repeat: no-repeat;
     box-sizing: border-box;
     font-size: 16px;
+
     a {
       text-decoration: none;
       color: #1c1c1c;

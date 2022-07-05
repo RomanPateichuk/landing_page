@@ -1,79 +1,16 @@
 <template>
   <div class="main-wrapper">
-    <div class="header-wrapper">
-      <nav class="nav">
-        <menu class="menu">
-          <li>
-            <a href="/"
-              ><img src="../../assets/images/home.svg" alt="home link"
-            /></a>
-          </li>
-          <li v-for="item in menu_items" :key="item.id">
-            <a :href="item.url" class="menu-item">{{ item.value }}</a>
-          </li>
-          <li class="burger"></li>
-        </menu>
-      </nav>
-      <header class="header">
-        <div class="services header-item">
-          <p class="materials">
-            <span class="header-attent"
-              >Кровельные и фасадные <br />
-              материалы</span
-            >
-            в Тюмени и области.
-          </p>
-          <p class="mounting">
-            Профессиональный монтаж с <br />
-            2010 года.
-          </p>
-        </div>
-        <a class="price header-item" href="">
-          <div class="price-logo">Pdf</div>
-          <p class="header-link">
-            <span class="header-attent">Скачать прайс-каталог</span>
-          </p>
-        </a>
-        <div class="logo header-item">
-          <img src="../../assets/images/logo.png" alt="company logo" />
-        </div>
-        <div class="socials header-item">
-          <p class="social-text">
-            Отвечаем <span class="header-attent">онлайн</span>
-          </p>
-
-          <div class="social-items">
-            <a
-              v-for="item in social_items"
-              :key="item.id"
-              :href="item.url"
-              target="_blank"
-            >
-              <img
-                :src="require(`../../assets/images/${item.img}`)"
-                :alt="item.alt"
-              />
-            </a>
-          </div>
-        </div>
-        <div class="contacts header-item">
-          <p class="working">
-            <span class="header-attent">Пн-Пт</span> 9:00 - 18:00,
-            <span class="header-attent">Сб</span> 10:00 - 18:00
-          </p>
-          <a class="call-wrapper" href="tel:+88002225460">
-            <p class="telephone">
-              <span class="header-attent">8 (800) 222-54-60</span>
-            </p>
-            <p class="contacts-btn">
-              <span class="header-attent header-link">Позвоните мне</span>
-            </p>
-          </a>
-        </div>
-      </header>
-    </div>
+    <HeaderWrapperMain :menu-items="menu_items" :social-items="social_items" />
+    <HeaderWrapperBurger
+      :menu-items="menu_items"
+      :social-items="social_items"
+    />
     <main>
       <aside class="aside">
+        <div class="aside-btn"></div>
+        <p class="click-plus-description">
+          Нажмите на плюсик, чтобы увидеть все преимущества работы с нами
+        </p>
         <div
           class="aside-item"
           v-for="item in aside_items"
@@ -147,14 +84,17 @@
 
 <script>
 import { mask } from "vue-the-mask";
+import HeaderWrapperMain from "../HeaderWrapperMain.vue";
+import HeaderWrapperBurger from "../HeaderWrapperBurger.vue";
 export default {
+  name: "MainPage",
   directives: {
     mask: mask,
   },
+  components: { HeaderWrapperMain, HeaderWrapperBurger },
   data() {
     return {
       phone_number: "",
-
       directives: { mask },
       menu_items: [
         { id: 1, value: "Каталог", url: "/" },
@@ -165,7 +105,6 @@ export default {
         { id: 6, value: "Ответы на вопросы", url: "/" },
         { id: 7, value: "Контакты", url: "/" },
       ],
-
       social_items: [
         {
           id: 1,
@@ -186,7 +125,6 @@ export default {
           alt: "telegram aplication",
         },
       ],
-
       aside_items: [
         {
           id: 1,
@@ -221,9 +159,14 @@ export default {
   padding: 0 9.11vw 5vw;
   position: relative;
   width: 100%;
+  overflow: hidden;
   @media (max-width: 1160px) {
     padding: 0 5vw 5vw;
   }
+  @media (max-width: 1054px) {
+    padding: 0 5vw 0;
+  }
+
   .header-wrapper {
     display: flex;
     flex-direction: column;
@@ -247,7 +190,11 @@ export default {
         padding: 0 1.35vw 1.82vw 0;
         margin-top: 43px;
         border-bottom: 1px solid rgba(28, 28, 28, 0.1);
-
+        // для бургер меню
+        // flex-direction: column;
+        // align-items: center;
+        // gap: 25px;
+        /********* */
         @media (max-width: 1220px) {
           padding: 0 0 1.82vw 0;
         }
@@ -257,14 +204,40 @@ export default {
 
         li {
           list-style-type: none;
+          //для бургер меню
+          // order: 2;
+          //
           &.burger {
+            //для бургер меню order
+            // order: 1;
+            // align-self: flex-end;
+            //
             display: none;
             width: 20px;
             height: 15px;
             border-top: 2.13px solid #1c1c1c;
             border-bottom: 2.13px solid #1c1c1c;
             position: relative;
-            margin-left: auto;
+            transition: transform 0.8s ease-in-out;
+            &:after {
+              content: "";
+              width: 20px;
+              height: 0;
+              position: absolute;
+              border-bottom: 2.13px solid #1c1c1c;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+
+            &.active {
+              border-top: none;
+              transform: rotate(45deg);
+              &:after {
+                transform: rotate(90deg) translate(7.1px, 10.5px);
+              }
+            }
+
             @media (max-width: 1111px) {
               display: block;
             }
@@ -272,18 +245,10 @@ export default {
               top: -10px;
             }
           }
-          &:after {
-            content: "";
-            width: 20px;
-            height: 0;
-            position: absolute;
-            border-bottom: 2.13px solid #1c1c1c;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
+
           @media (max-width: 1111px) {
             &:not(:first-child):not(:last-child) {
+              //для бургер меню убрать
               display: none;
             }
           }
@@ -448,11 +413,12 @@ export default {
   main {
     display: flex;
     margin-top: 50px;
+    position: relative;
     .aside {
       display: flex;
       background-color: #ffff;
       flex-direction: column;
-      border-radius: 20px 5px 20px 20px;
+      border-radius: 0 25px 20px 20px;
       width: 265px;
       height: 626px;
       align-items: center;
@@ -460,6 +426,8 @@ export default {
       position: relative;
       box-shadow: 0px 0px 75px rgba(0, 0, 0, 0.03);
       padding: 65px 35px 41px 35px;
+      -webkit-transition: height 0.5s;
+      transition: height 0.5s;
       &::before {
         display: block;
         content: "";
@@ -484,9 +452,98 @@ export default {
         &:not(:last-child)::after {
           content: url("../../assets/images/aside_shadow.png");
         }
+
+        @media (max-width: 1054px) {
+          &:nth-child(2) {
+            order: 1;
+          }
+          &:nth-child(3) {
+            order: 3;
+          }
+          &:nth-child(4) {
+            order: 4;
+          }
+          &:nth-child(4) {
+            order: 5;
+          }
+          &:nth-child(5) {
+            order: 6;
+          }
+          &:nth-child(6) {
+            order: 7;
+          }
+        }
       }
-      @media (max-width: 1054px) {
+
+      .aside-btn {
         display: none;
+        width: 33px;
+        min-height: 33px;
+        background-color: #f38120;
+        border-radius: 50%;
+        position: relative;
+        align-self: flex-end;
+
+        &:after,
+        &:before {
+          content: "";
+          width: 10px;
+          position: absolute;
+          border: 1px solid #ffff;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: transform 0.5s ease-in-out;
+        }
+
+        &:before {
+          content: "";
+          width: 10px;
+          position: absolute;
+          border: 1px solid #ffff;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        &.active {
+          &:after,
+          &:before {
+            width: 20px;
+          }
+
+          &:after {
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+
+          &:before {
+            transform: translate(-50%, -50%) rotate(-45deg);
+          }
+        }
+        @media (max-width: 1054px) {
+          display: block;
+        }
+      }
+      .click-plus-description {
+        display: none;
+        text-align: center;
+        color: #b5b5b5;
+        margin: 1.7rem 0;
+        @media (max-width: 1054px) {
+          display: block;
+          order: 2;
+        }
+      }
+
+      @media (max-width: 1054px) {
+        margin-top: 75px;
+        order: 2;
+        height: 245px;
+        border-radius: 0 25px 0 0;
+        padding: 25px 15px 41px;
+        &.active {
+          height: 626px;
+        }
       }
     }
     .main-section {
@@ -626,16 +683,25 @@ export default {
         }
       }
     }
+    @media (max-width: 1054px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
   .modal-request-wrapper {
-    display: none;
+    display: block;
     background: #f5f5f5;
-    min-width: 28.7vw;
+    min-width: 550px;
+    min-height: 650px;
     border-radius: 2.1875rem;
     padding: 3.4% 2% 4.5%;
     position: absolute;
-    top: 25%;
-    left: 55%;
+    right: -1000px;
+    transition: right 0.5s;
+    &.active {
+      right: 0px;
+    }
+
     .close {
       position: absolute;
       right: 43px;
@@ -643,6 +709,10 @@ export default {
       width: 2vw;
       height: 2vw;
       opacity: 0.3;
+
+      @media (max-width: 500px) {
+        top: 20px;
+      }
 
       &:hover {
         opacity: 1;
@@ -793,6 +863,10 @@ export default {
           }
         }
       }
+    }
+    @media (max-width: 588px) {
+      min-width: 75vw;
+      min-height: 30vh;
     }
   }
 }
