@@ -1,6 +1,6 @@
 <template>
   <transition name="show">
-    <div v-if="show_menu" class="header-wrapper-burger">
+    <div v-if="this.$store.getters.getShowMenu" class="header-wrapper-burger">
       <nav class="nav">
         <menu class="menu">
           <li class="home">
@@ -59,9 +59,7 @@ export default {
   name: "HeaderWrapperBurger",
   props: { menuItems: Array, socialItems: Array, showMenu: Boolean },
   data() {
-    return {
-      show_menu: false,
-    };
+    return {};
   },
 };
 </script>

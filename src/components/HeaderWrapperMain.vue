@@ -10,7 +10,11 @@
         <li v-for="item in menuItems" :key="item.id">
           <a :href="item.url" class="menu-item">{{ item.value }}</a>
         </li>
-        <li class="burger"></li>
+        <li
+          class="burger"
+          :class="{ active: this.$store.getters.getShowMenu }"
+          @click="showBurgerMenu"
+        ></li>
       </menu>
     </nav>
     <header class="header">
@@ -60,14 +64,14 @@
           <span class="header-attent">Пн-Пт</span> 9:00 - 18:00,
           <span class="header-attent">Сб</span> 10:00 - 18:00
         </p>
-        <a class="call-wrapper" href="tel:+88002225460">
+        <div class="call-wrapper" @click="changeCallModalRight">
           <p class="telephone">
             <span class="header-attent">8 (800) 222-54-60</span>
           </p>
           <p class="contacts-btn">
             <span class="header-attent header-link">Позвоните мне</span>
           </p>
-        </a>
+        </div>
       </div>
     </header>
   </div>
@@ -78,7 +82,18 @@ export default {
   name: "HeaderWrapperMain",
   props: { menuItems: Array, socialItems: Array },
   data() {
-    return {};
+    return {
+      showMenu: false,
+    };
+  },
+  methods: {
+    showBurgerMenu() {
+      this.$store.dispatch("callMenu", !this.$store.getters.getShowMenu);
+    },
+
+    changeCallModalRight() {
+      this.$store.dispatch("setModalAbsoluteRight", "0px");
+    },
   },
 };
 </script>
@@ -136,11 +151,7 @@ export default {
           }
 
           &.active {
-            border-top: none;
-            transform: rotate(45deg);
-            &:after {
-              transform: rotate(90deg) translate(7.1px, 10.5px);
-            }
+            transform: rotate(90deg);
           }
 
           @media (max-width: 1111px) {

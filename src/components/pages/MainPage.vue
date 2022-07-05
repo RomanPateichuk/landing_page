@@ -6,8 +6,12 @@
       :social-items="social_items"
     />
     <main>
-      <aside class="aside">
-        <div class="aside-btn"></div>
+      <aside class="aside" :class="{ active: showAside }">
+        <div
+          class="aside-btn"
+          :class="{ active: showAside }"
+          @click="showAside = !showAside"
+        ></div>
         <p class="click-plus-description">
           Нажмите на плюсик, чтобы увидеть все преимущества работы с нами
         </p>
@@ -43,8 +47,11 @@
           </p>
         </a>
       </section>
-      <div class="modal-request-wrapper">
-        <div class="close"></div>
+      <div
+        class="modal-request-wrapper"
+        :style="{ right: this.$store.getters.getCallModalRight }"
+      >
+        <div class="close" @click="modalCallClose"></div>
         <h2 class="modal-title">Быстро <br />оставить заявку</h2>
         <p class="modal-description">
           Введите номер, мы позвоним вам <br />
@@ -92,10 +99,17 @@ export default {
     mask: mask,
   },
   components: { HeaderWrapperMain, HeaderWrapperBurger },
+  computed: {},
+  methods: {
+    modalCallClose() {
+      this.$store.dispatch("setModalAbsoluteRight", "-1000px");
+    },
+  },
+
   data() {
     return {
       phone_number: "",
-      directives: { mask },
+      showAside: false,
       menu_items: [
         { id: 1, value: "Каталог", url: "/" },
         { id: 2, value: "Преимущества", url: "/" },
@@ -165,249 +179,6 @@ export default {
   }
   @media (max-width: 1054px) {
     padding: 0 5vw 0;
-  }
-
-  .header-wrapper {
-    display: flex;
-    flex-direction: column;
-    @media (max-width: 1110px) {
-      padding: 0 5vw;
-    }
-
-    @media (max-width: 644px) {
-      flex-direction: row-reverse;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: nowrap;
-      padding: 0;
-    }
-    .nav {
-      .menu {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: space-between;
-        padding: 0 1.35vw 1.82vw 0;
-        margin-top: 43px;
-        border-bottom: 1px solid rgba(28, 28, 28, 0.1);
-        // для бургер меню
-        // flex-direction: column;
-        // align-items: center;
-        // gap: 25px;
-        /********* */
-        @media (max-width: 1220px) {
-          padding: 0 0 1.82vw 0;
-        }
-        @media (max-width: 644px) {
-          border-bottom: none;
-        }
-
-        li {
-          list-style-type: none;
-          //для бургер меню
-          // order: 2;
-          //
-          &.burger {
-            //для бургер меню order
-            // order: 1;
-            // align-self: flex-end;
-            //
-            display: none;
-            width: 20px;
-            height: 15px;
-            border-top: 2.13px solid #1c1c1c;
-            border-bottom: 2.13px solid #1c1c1c;
-            position: relative;
-            transition: transform 0.8s ease-in-out;
-            &:after {
-              content: "";
-              width: 20px;
-              height: 0;
-              position: absolute;
-              border-bottom: 2.13px solid #1c1c1c;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-            }
-
-            &.active {
-              border-top: none;
-              transform: rotate(45deg);
-              &:after {
-                transform: rotate(90deg) translate(7.1px, 10.5px);
-              }
-            }
-
-            @media (max-width: 1111px) {
-              display: block;
-            }
-            @media (max-width: 644px) {
-              top: -10px;
-            }
-          }
-
-          @media (max-width: 1111px) {
-            &:not(:first-child):not(:last-child) {
-              //для бургер меню убрать
-              display: none;
-            }
-          }
-          @media (max-width: 644px) {
-            &:first-child {
-              display: none;
-            }
-          }
-        }
-
-        .menu-item {
-          font-weight: 500;
-          line-height: 140%;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-          padding: 0 5px;
-          &:hover {
-            color: #f38120;
-          }
-
-          @media (max-width: 1220px) {
-            letter-spacing: normal;
-          }
-        }
-      }
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      flex-wrap: wrap;
-      gap: 0.781vw;
-      @media (max-width: 1495px) {
-        justify-content: center;
-        gap: 4vw;
-        row-gap: 1vw;
-      }
-      @media (max-width: 644px) {
-        flex-wrap: nowrap;
-      }
-
-      .header-item {
-        @media (max-width: 995px) {
-          &:not(:last-child):not(:nth-child(3)) {
-            display: none;
-          }
-        }
-      }
-      .div {
-        flex: 0 0 auto;
-      }
-      .header-attent {
-        font-weight: 600;
-      }
-
-      .header-link {
-        border-bottom: 2px solid #12c868;
-        border-bottom-style: dotted;
-        padding-bottom: 2px;
-        letter-spacing: 0.04em;
-      }
-      .services {
-        font-weight: 400;
-        text-align: center;
-        line-height: 1.125rem;
-        .materials {
-          padding-bottom: 0.875rem;
-        }
-      }
-
-      .price {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        @media (max-width: 1324px) {
-          flex-direction: column;
-        }
-        .price-logo {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 2.284vw;
-          height: 2.284vw;
-          font-size: 0.6875rem;
-          background: #ffffff;
-          box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.05);
-          border-radius: 100px;
-          color: #12c868;
-          margin-right: 17.15px;
-        }
-      }
-
-      .logo {
-        img {
-          @media (max-width: 644px) {
-            width: 75px;
-            height: 52px;
-          }
-        }
-        @media (max-width: 320px) {
-          align-self: flex-start;
-        }
-      }
-
-      .socials {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16.58px;
-        .social-text {
-          letter-spacing: 0.02em;
-          position: relative;
-          &::before {
-            content: "";
-            width: 4px;
-            height: 4px;
-            background: #12c868;
-            border-radius: 100px;
-            position: absolute;
-            left: -8px;
-            top: 4px;
-          }
-        }
-
-        .social-items {
-          a {
-            &:not(:last-child) {
-              margin-right: 14.75px;
-            }
-            img {
-              &:hover {
-                border-radius: 100%;
-                outline: 2px solid #f38120;
-                outline-offset: -1px;
-              }
-            }
-          }
-        }
-      }
-      .contacts {
-        text-align: center;
-        .call-wrapper {
-          .telephone {
-            font-size: 1.375rem;
-            letter-spacing: 0.05em;
-            margin: 6px 0;
-            @media (max-width: 380px) {
-              font-size: 17px;
-            }
-          }
-        }
-        @media (max-width: 380px) {
-          padding-top: 10px;
-          font-size: 10px;
-        }
-      }
-    }
   }
 
   main {
@@ -696,12 +467,7 @@ export default {
     border-radius: 2.1875rem;
     padding: 3.4% 2% 4.5%;
     position: absolute;
-    right: -1000px;
     transition: right 0.5s;
-    &.active {
-      right: 0px;
-    }
-
     .close {
       position: absolute;
       right: 43px;
