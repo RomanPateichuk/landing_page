@@ -8,7 +8,7 @@
               ><img src="../assets/images/home.svg" alt="home link"
             /></a>
           </li>
-          <li v-for="item in menuItems" :key="item.id">
+          <li v-for="item in getMenuItems" :key="item.id">
             <a :href="item.url" class="menu-item">{{ item.value }}</a>
           </li>
         </menu>
@@ -37,7 +37,7 @@
 
           <div class="social-items">
             <a
-              v-for="item in socialItems"
+              v-for="item in getSocialItems"
               :key="item.id"
               :href="item.url"
               target="_blank"
@@ -55,11 +55,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  name: "HeaderWrapperBurger",
+  name: "HeaderBurger",
   props: { menuItems: Array, socialItems: Array, showMenu: Boolean },
   data() {
     return {};
+  },
+  computed: {
+    ...mapGetters(["getMenuItems", "getSocialItems"]),
   },
 };
 </script>
