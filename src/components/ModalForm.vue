@@ -59,12 +59,13 @@ export default {
     ...mapActions(["setModalAbsoluteRight"]),
     modalCallClose() {
       this.setModalAbsoluteRight("-1000px");
+      console.log("close");
     },
     send() {
       this.responseActive = true;
-
       setTimeout(() => {
         this.responseActive = false;
+        this.modalCallClose();
       }, 1000);
     },
   },
