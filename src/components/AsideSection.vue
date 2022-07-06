@@ -19,8 +19,12 @@ export default {
   methods: {
     show() {
       this.showAside = !this.showAside;
-      setInterval(function () {
-        window.scrollTo(0, document.body.scrollHeight);
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          left: 0,
+          behavior: "smooth",
+        });
       }, 1000);
     },
   },
