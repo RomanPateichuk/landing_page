@@ -76,7 +76,6 @@ export default {
     width: 2vw;
     height: 2vw;
     opacity: 0.3;
-
     @media (max-width: 500px) {
       top: 20px;
     }
@@ -93,6 +92,10 @@ export default {
       height: 33px;
       width: 5px;
       background-color: #a0a0a0;
+      @media (max-width: 700px) {
+        height: 25px;
+        width: 4px;
+      }
     }
     &:before {
       transform: rotate(45deg);

@@ -93,6 +93,9 @@ export default {
     },
 
     changeCallModalRight() {
+      if (this.$store.getters.getShowMenu) {
+        this.showBurgerMenu();
+      }
       this.$store.dispatch("setModalAbsoluteRight", "0px");
     },
   },
