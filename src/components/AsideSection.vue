@@ -1,7 +1,7 @@
 <template>
   <aside class="aside" :class="{ active: showAside }">
     <div class="aside-btn" :class="{ active: showAside }" @click="show"></div>
-    <p class="click-plus-description">
+    <p class="click-plus-description" :class="{ disabled: showAside }">
       Нажмите на плюсик, чтобы увидеть все преимущества работы с нами
     </p>
     <div
@@ -175,6 +175,9 @@ export default {
     text-align: center;
     color: #b5b5b5;
     margin: 1.7rem 0;
+    &.disabled {
+      display: none;
+    }
     @media (max-width: 1054px) {
       display: block;
       order: 2;
