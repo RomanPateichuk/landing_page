@@ -25,6 +25,7 @@ export default {
   user-select: none;
 }
 html {
+  scroll-behavior: smooth;
   body {
     background-image: url(assets/images/bg.png);
     background-size: cover;

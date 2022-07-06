@@ -1,6 +1,6 @@
 <template>
   <aside class="aside" :class="{ active: showAside }">
-    <div class="aside-btn" :class="{ active: showAside }" @click="show()"></div>
+    <div class="aside-btn" :class="{ active: showAside }" @click="show"></div>
     <p class="click-plus-description">
       Нажмите на плюсик, чтобы увидеть все преимущества работы с нами
     </p>
@@ -19,7 +19,9 @@ export default {
   methods: {
     show() {
       this.showAside = !this.showAside;
-      window.scrollTo(0, document.body.scrollHeight);
+      setInterval(function () {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 1000);
     },
   },
   data() {
