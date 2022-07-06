@@ -12,7 +12,7 @@
         </li>
         <li
           class="burger"
-          :class="{ active: this.$store.getters.getShowMenu }"
+          :class="{ active: getShowMenu }"
           @click="showBurgerMenu"
         ></li>
       </menu>
@@ -78,29 +78,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "HeaderWrapperMain",
-  props: { menuItems: Array, socialItems: Array },
   data() {
     return {
       showMenu: false,
     };
   },
   methods: {
+    ...mapActions(["callMenu", "setModalAbsoluteRight"]),
     showBurgerMenu() {
-      this.$store.dispatch("callMenu", !this.$store.getters.getShowMenu);
+      this.callMenu(!this.getShowMenu);
     },
 
     changeCallModalRight() {
-      if (this.$store.getters.getShowMenu) {
+      if (this.getShowMenu) {
         this.showBurgerMenu();
       }
-      this.$store.dispatch("setModalAbsoluteRight", "0px");
+      this.setModalAbsoluteRight("0px");
     },
   },
   computed: {
-    ...mapGetters(["getMenuItems", "getSocialItems"]),
+    ...mapGetters(["getMenuItems", "getSocialItems", "getShowMenu"]),
   },
 };
 </script>
