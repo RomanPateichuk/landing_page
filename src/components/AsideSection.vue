@@ -1,10 +1,6 @@
 <template>
   <aside class="aside" :class="{ active: showAside }">
-    <div
-      class="aside-btn"
-      :class="{ active: showAside }"
-      @click="showAside = !showAside"
-    ></div>
+    <div class="aside-btn" :class="{ active: showAside }" @click="show()"></div>
     <p class="click-plus-description">
       Нажмите на плюсик, чтобы увидеть все преимущества работы с нами
     </p>
@@ -20,7 +16,12 @@
 <script>
 export default {
   name: "AsideSection",
-
+  methods: {
+    show() {
+      this.showAside = !this.showAside;
+      window.scrollTo(0, document.body.scrollHeight);
+    },
+  },
   data() {
     return {
       showAside: false,

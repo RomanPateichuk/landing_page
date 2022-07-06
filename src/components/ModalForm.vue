@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="modal-request-wrapper"
-    :style="{ right: this.$store.getters.getCallModalRight }"
-  >
+  <div class="modal-request-wrapper" :style="{ right: getCallModalRight }">
     <div class="close" @click="modalCallClose"></div>
     <h2 class="modal-title">Быстро <br />оставить заявку</h2>
     <p class="modal-description">
@@ -38,6 +35,7 @@
 </template>
 <script>
 import { mask } from "vue-the-mask";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ModalForm",
   directives: {
@@ -49,9 +47,14 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters(["getCallModalRight"]),
+  },
+
   methods: {
+    ...mapActions(["setModalAbsoluteRight"]),
     modalCallClose() {
-      this.$store.dispatch("setModalAbsoluteRight", "-1000px");
+      this.setModalAbsoluteRight("-1000px");
     },
   },
 };

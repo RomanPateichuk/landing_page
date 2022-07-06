@@ -58,7 +58,6 @@
 import { mapGetters } from "vuex";
 export default {
   name: "HeaderBurger",
-  props: { menuItems: Array, socialItems: Array, showMenu: Boolean },
   data() {
     return {};
   },

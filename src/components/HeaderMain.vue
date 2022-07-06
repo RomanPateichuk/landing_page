@@ -80,7 +80,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "HeaderMain",
+  name: "HeaderWrapperMain",
   props: { menuItems: Array, socialItems: Array },
   data() {
     return {
@@ -96,7 +96,6 @@ export default {
       this.$store.dispatch("setModalAbsoluteRight", "0px");
     },
   },
-
   computed: {
     ...mapGetters(["getMenuItems", "getSocialItems"]),
   },

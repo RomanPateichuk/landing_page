@@ -1,7 +1,7 @@
 <template>
   <div class="main-wrapper">
-    <header-main :menu-items="menu_items" :social-items="social_items" />
-    <header-burger :menu-items="menu_items" :social-items="social_items" />
+    <header-main />
+    <header-burger />
     <main>
       <aside-section />
       <main-section />
