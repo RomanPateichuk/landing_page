@@ -7,7 +7,7 @@
       в течение 10 минут в рабочее время
     </p>
     <p class="modal-time">Пн–Пт 9:00 - 18:00, Сб 10:00 - 18:00</p>
-    <form class="modal-form" method="get">
+    <form class="modal-form" @submit.prevent="send">
       <label for="in-phone" class="lab-phone">Введите номер телефона</label>
       <input
         id="in-phone"
@@ -31,6 +31,9 @@
         >
       </div>
     </form>
+    <div class="response" :class="{ active: responseActive }">
+      Звонок заказан
+    </div>
   </div>
 </template>
 <script>
@@ -44,6 +47,7 @@ export default {
   data() {
     return {
       phone_number: "",
+      responseActive: false,
     };
   },
 
@@ -55,6 +59,13 @@ export default {
     ...mapActions(["setModalAbsoluteRight"]),
     modalCallClose() {
       this.setModalAbsoluteRight("-1000px");
+    },
+    send() {
+      this.responseActive = true;
+
+      setTimeout(() => {
+        this.responseActive = false;
+      }, 1000);
     },
   },
 };
@@ -237,6 +248,27 @@ export default {
   @media (max-width: 588px) {
     min-width: 75vw;
     min-height: 30vh;
+  }
+
+  .response {
+    background-color: #f38120;
+    height: 50px;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #ffffff;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &.active {
+      display: flex;
+    }
   }
 }
 </style>
